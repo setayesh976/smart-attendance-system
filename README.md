@@ -1,27 +1,29 @@
 # Smart Attendance System
 
-A Python program I built to track student attendance for my programming class, extended with a few rule-based analytics features.
+A Python attendance tracker built while teaching computer skills at a local institute, extended with a catch-up content tracker.
+
+## Background
+
+I built this after running into problems with paper-based attendance records at the institute — records would go missing or get disorganized. Once the basic tracker was working, I kept running into the same follow-up problem: whenever a student missed several sessions, I had to manually remember and work out exactly what they'd missed before I could catch them up. This feature grew out of that real, recurring task.
 
 ## Features
 
-- Add and remove students
-- Mark present or absent by date
-- View individual attendance records
-- Class-wide attendance summary
-- Cancelled class dates are recorded and protected (no attendance is marked on those days)
-- Absence pattern detection — identifies which weekday each student tends to miss most often
-- Risk scoring — a simple rule-based score (0–100) estimating how likely a student is to be absent next session, based on their overall attendance rate and their attendance rate over the last 5 sessions (recent sessions are weighted more heavily)
-- Attendance alerts — automatically flags students at Medium or High absence risk
-- Text-based attendance chart — a bar chart in the terminal showing each student's attendance rate
+- Add students, mark present or absent by date
+- Each session can be tagged with the topic that was taught that day
+- Catch-up list — for any student, automatically generates the exact list of topics they missed, by matching their absence dates against recorded session topics
+- Class-wide view showing every student's missed topics at once
+- Cancelled class dates are recorded and protected (no attendance marked on those days)
 
 ## How It Works
 
-The risk score is not a machine learning model — it's a transparent, rule-based calculation:
-risk_score = (0.3 × overall_absence_rate + 0.7 × recent_absence_rate) × 100
-Recent absences (last 5 sessions) count for more than the full history, so a student who has recently started missing more classes shows up as higher risk even if their long-term record is still fine. I chose this approach because it's simple, explainable, and doesn't require training data — while still going a step beyond a plain present/absent counter.
+The catch-up list is simple rule-based matching — checking each absence date against the topic recorded for that session — not a trained model.
+
+A more advanced version of this idea, which I'd like to build as I learn more, would go further: using a student's quiz or assignment scores on each topic to recommend which missed topics to prioritize reviewing first, similar to how a recommendation system suggests content based on someone's history. That would need per-topic performance data and recommender-system techniques I haven't learned yet. This version handles the simpler, rule-based half of the idea — knowing exactly what was missed — which was the first and most immediate problem I actually had to solve.
 
 ## How To Run
-python smart_attendance_system.py
+
+python attendance_system.py
+
 ## Notes
 
-This started as a basic attendance tracker and was gradually extended with the analytics features above as I learned more. The logic is intentionally kept simple (comparisons, weighted averages, dictionaries) rather than using any ML library.
+This project is a direct outcome of my time teaching at the institute, not a hypothetical exercise — the catch-up problem it solves is one I ran into personally and repeatedly.
